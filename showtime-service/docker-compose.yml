@@ -1,0 +1,28 @@
+version: '3.7'
+
+services:
+  app-showtime-service:
+    image: 'wahyubagus/mcsvcs-showtime-service:latest'
+    build:
+      context: .
+    container_name: showtime-service
+    ports:
+      - 8082:8082
+    networks:
+      - mcsvcs-movie
+    environment:
+      - USER_MANAGEMENT_SERVICE_BASE_URL=http://user-management-service:8081/api/user-management-service
+  app-user-management-service:
+    image: 'wahyubagus/mcsvcs-user-management-service:latest'
+    build:
+      context: .
+    container_name: user-management-service
+    ports:
+      - 8081:8081
+    networks:
+      - mcsvcs-movie
+
+
+networks:
+  mcsvcs-movie:
+    name: mcsvcs-movie
